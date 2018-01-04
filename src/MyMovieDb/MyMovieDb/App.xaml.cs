@@ -1,4 +1,7 @@
-﻿using MyMovieDb.ViewModels;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using AutoMapper.Configuration;
+using MyMovieDb.ViewModels;
 using MyMovieDb.Views;
 using DryIoc;
 using Prism.DryIoc;
@@ -22,8 +25,9 @@ namespace MyMovieDb
         protected override async void OnInitialized()
         {
             InitializeComponent();
+	        InitAutoMapper();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+			await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes()
@@ -31,5 +35,13 @@ namespace MyMovieDb
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<MainPage>();
         }
+
+	    private void InitAutoMapper()
+	    {
+			MapperConfigurationExpression cfg = new MapperConfigurationExpression();
+		    cfg.CreateMap<TMDbLib.Objects.General.Genre, Models.Genre>();
+
+			Mapper.Initialize(cfg);
+	    }
     }
 }

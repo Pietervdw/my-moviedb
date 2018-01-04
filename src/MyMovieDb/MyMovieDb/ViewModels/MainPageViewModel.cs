@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MyMovieDb.Contracts.Repositories;
+using MyMovieDb.Repositories;
 
 namespace MyMovieDb.ViewModels
 {
@@ -14,6 +16,16 @@ namespace MyMovieDb.ViewModels
             : base (navigationService)
         {
             Title = "Main Page";
+			
+			DelegateCommand cmd = new DelegateCommand(ExecuteIt);
+			cmd.Execute();
+
         }
+
+	    async void ExecuteIt()
+	    {
+			IMovieRepository repo = new MovieRepository();
+		    var result = await repo.GetGenres();
+	    }
     }
 }

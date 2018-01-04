@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using MyMovieDb.Contracts.Repositories;
 using MyMovieDb.Models;
 using TMDbLib.Client;
@@ -10,9 +11,11 @@ namespace MyMovieDb.Repositories
 	{
 		TMDbClient _client = new TMDbClient("---YOUR-API-KEY---");
 
-		public Task<List<Genre>> GetGenres()
+		public async Task<List<Genre>> GetGenres()
 		{
-			throw new System.NotImplementedException();
+			var genres = await _client.GetMovieGenresAsync();
+			var result = Mapper.Map<List<TMDbLib.Objects.General.Genre>, List<Models.Genre>>(genres);
+			return result;
 		}
 	}
 }
