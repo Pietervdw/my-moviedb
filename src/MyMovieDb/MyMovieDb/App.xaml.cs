@@ -4,7 +4,9 @@ using AutoMapper.Configuration;
 using MyMovieDb.ViewModels;
 using MyMovieDb.Views;
 using DryIoc;
+using Prism;
 using Prism.DryIoc;
+using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,23 +27,23 @@ namespace MyMovieDb
         protected override async void OnInitialized()
         {
             InitializeComponent();
-	        InitAutoMapper();
+            InitAutoMapper();
 
-			await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
-        protected override void RegisterTypes()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<MainPage>();
         }
 
-	    private void InitAutoMapper()
-	    {
-			MapperConfigurationExpression cfg = new MapperConfigurationExpression();
-		    cfg.CreateMap<TMDbLib.Objects.General.Genre, Models.Genre>();
+        private void InitAutoMapper()
+        {
+            MapperConfigurationExpression cfg = new MapperConfigurationExpression();
+            cfg.CreateMap<TMDbLib.Objects.General.Genre, Models.Genre>();
 
-			Mapper.Initialize(cfg);
-	    }
+            Mapper.Initialize(cfg);
+        }
     }
 }

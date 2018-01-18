@@ -1,7 +1,9 @@
 ﻿using Foundation;
 using UIKit;
 using DryIoc;
+using Prism;
 using Prism.DryIoc;
+using Prism.Ioc;
 
 namespace MyMovieDb.iOS
 {
@@ -27,11 +29,16 @@ namespace MyMovieDb.iOS
         }
     }
 
+    /// <summary>
+    /// This is in your iOS project - MyMovieDb.iOS - AppDelegate.cs
+    /// </summary>
     public class iOSInitializer : IPlatformInitializer
     {
-        public void RegisterTypes(IContainer container)
+        public void RegisterTypes(IContainerRegistry container)
         {
-            
+
         }
     }
 }
+
+

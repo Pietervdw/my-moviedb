@@ -2,7 +2,9 @@
 using Android.Content.PM;
 using Android.OS;
 using DryIoc;
+using Prism;
 using Prism.DryIoc;
+using Prism.Ioc;
 
 namespace MyMovieDb.Droid
 {
@@ -21,9 +23,12 @@ namespace MyMovieDb.Droid
         }
     }
 
+    /// <summary>
+    /// This is in your Android project
+    /// </summary>
     public class AndroidInitializer : IPlatformInitializer
     {
-        public void RegisterTypes(IContainer container)
+        public void RegisterTypes(IContainerRegistry container)
         {
             // Register any platform specific implementations
         }
