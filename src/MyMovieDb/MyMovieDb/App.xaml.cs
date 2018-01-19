@@ -4,6 +4,10 @@ using AutoMapper.Configuration;
 using MyMovieDb.ViewModels;
 using MyMovieDb.Views;
 using DryIoc;
+using MyMovieDb.Contracts.Repositories;
+using MyMovieDb.Contracts.Services;
+using MyMovieDb.Repositories;
+using MyMovieDb.Services;
 using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -29,13 +33,17 @@ namespace MyMovieDb
             InitializeComponent();
             InitAutoMapper();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/GenrePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<GenrePage>();
+
+            containerRegistry.Register<IMovieService, MovieService>();
+            containerRegistry.Register<IMovieRepository, MovieRepository>();
         }
 
         private void InitAutoMapper()
